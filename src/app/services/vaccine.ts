@@ -91,4 +91,25 @@ export class VaccineService {
     lateVaccines: late
   };
 }
+getCampaigns() {
+  return [
+    {
+      id: 1,
+      name: 'Campanha Influenza 2026',
+      vaccineId: 4,
+      targetAgeMonths: 6
+    }
+  ];
+}
+
+isChildEligible(child: any, campaign: any) {
+  const birth = new Date(child.birthDate);
+  const now = new Date();
+
+  const ageMonths =
+    (now.getFullYear() - birth.getFullYear()) * 12 +
+    (now.getMonth() - birth.getMonth());
+
+  return ageMonths >= campaign.targetAgeMonths;
+}
 }

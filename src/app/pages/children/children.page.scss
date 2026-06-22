@@ -1,6 +1,8 @@
 ion-card {
   cursor: pointer;
   transition: transform 0.2s ease;
+  border-radius: 16px;
+  margin-bottom: 16px;
 }
 
 ion-card:hover {
@@ -28,6 +30,16 @@ ion-card:hover {
 }
 
 .btn-remove {
-  --background: #FDA769;   /* sua cor da paleta (laranja suave) */
+  --background: #FDA769; 
   --color: #000;
+}
+
+ion-card-title {
+  color: #473C33;
+  font-weight: 700;
+}
+
+ion-toolbar {
+  --background: #ABC270;
+  --color: #473C33;
 }

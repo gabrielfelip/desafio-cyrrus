@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Router } from '@angular/router';
 import { VaccineService } from '../../services/vaccine';
 
 import {
@@ -12,7 +11,7 @@ import {
   IonCardHeader,
   IonCardTitle,
   IonCardContent,
-  IonButton
+  IonCardSubtitle
 } from '@ionic/angular/standalone';
 
 @Component({
@@ -30,65 +29,79 @@ import {
     IonCardHeader,
     IonCardTitle,
     IonCardContent,
-    IonButton
+    IonCardSubtitle
   ]
 })
 export class CampaignsPage {
 
-  summary: any;
-  riskList: any[] = [];
+  campaigns: any[] = [];
 
-  constructor(
-    private vaccineService: VaccineService,
-    private router: Router
-  ) {
+  constructor(private vaccineService: VaccineService) {
+    this.campaigns = this.vaccineService.getCampaigns();
+  }
+
+  getVaccineName(id: number) {
+    return this.vaccineService.getVaccineName(id);
+  }
+
+  getCampaignData(campaign: any) {
 
     const children = this.vaccineService.getChildren();
 
-    let late = 0;
-    let pending = 0;
+    const list: any[] = [];
 
-    const result: any[] = [];
+    let eligible = 0;
+    let vaccinated = 0;
+    let pending = 0;
 
     children.forEach(child => {
 
-      const vaccines = this.vaccineService.getVaccinationsByChild(child.id);
+      const isEligible =
+        this.vaccineService.isChildEligible(child, campaign);
 
-      let riskCount = 0;
+      if (!isEligible) {
 
-      vaccines.forEach(v => {
-        const status = this.vaccineService.getStatus(v);
-
-        if (status === 'ATRASADA') {
-          late++;
-          riskCount++;
-        }
-
-        if (status === 'PENDENTE') {
-          pending++;
-          riskCount++;
-        }
-      });
-
-      if (riskCount > 0) {
-        result.push({
+        list.push({
           child,
-          riskCount
+          status: 'NAO_ELEGIVEL'
+        });
+
+        return;
+      }
+
+      eligible++;
+
+      const vaccines =
+        this.vaccineService.getVaccinationsByChild(child.id);
+
+      const hasVaccine =
+        vaccines.some(v => v.vaccineId === campaign.vaccineId);
+
+      if (hasVaccine) {
+
+        vaccinated++;
+
+        list.push({
+          child,
+          status: 'VACINADO'
+        });
+
+      } else {
+
+        pending++;
+
+        list.push({
+          child,
+          status: 'PENDENTE'
         });
       }
     });
 
-    // ordenar do mais crítico para o menos crítico
-    this.riskList = result.sort((a, b) => b.riskCount - a.riskCount);
-
-    this.summary = {
-      atRiskChildren: result.length,
-      lateVaccines: late,
-      pendingVaccines: pending
+    return {
+      eligibleCount: eligible,
+      vaccinatedCount: vaccinated,
+      pendingCount: pending,
+      list
     };
-  }
-
-  openChild(childId: number) {
-    this.router.navigate(['/child-detail', childId]);
   }
 }

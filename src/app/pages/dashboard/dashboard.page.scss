@@ -33,3 +33,18 @@
   background: #ABC270; /* sucesso */
   color: #473C33;
 }
+
+ion-card {
+  border-radius: 16px;
+  margin-bottom: 16px;
+}
+
+ion-card-title {
+  color: #473C33;
+  font-weight: 700;
+}
+
+ion-toolbar {
+  --background: #ABC270;
+  --color: #473C33;
+}
