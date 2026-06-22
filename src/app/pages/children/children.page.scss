@@ -1,0 +1,33 @@
+ion-card {
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+ion-card:hover {
+  transform: scale(1.02);
+}
+
+.status {
+  padding: 6px 10px;
+  border-radius: 8px;
+  margin: 4px 0;
+  font-weight: bold;
+  color: #473C33;
+}
+
+.ok {
+  background: #ABC270;
+}
+
+.warning {
+  background: #FEC868;
+}
+
+.danger {
+  background: #FDA769;
+}
+
+.btn-remove {
+  --background: #FDA769;   /* sua cor da paleta (laranja suave) */
+  --color: #000;
+}

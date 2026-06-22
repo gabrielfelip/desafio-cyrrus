@@ -1,0 +1,55 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Crianças</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+
+  <!-- FORM -->
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>➕ Nova criança</ion-card-title>
+    </ion-card-header>
+
+    <ion-card-content>
+
+      <ion-item>
+        <ion-input [(ngModel)]="newChild.name" placeholder="Nome"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-input [(ngModel)]="newChild.birthDate" type="date"></ion-input>
+      </ion-item>
+
+      <ion-button expand="block" (click)="addChild()">
+        Salvar
+      </ion-button>
+
+    </ion-card-content>
+  </ion-card>
+
+  <!-- LISTA -->
+  <ion-card
+  *ngFor="let child of children"
+  (click)="openChild(child.id)"
+  style="cursor: pointer;"
+>
+
+    <ion-card-header>
+      <ion-card-title>{{ child.name }}</ion-card-title>
+    </ion-card-header>
+
+    <ion-card-content>
+
+      <p>Nascimento: {{ formatDate(child.birthDate) }}</p>
+
+      <ion-button class="btn-remove" size="small" (click)="deleteChild(child.id)">
+        Remover
+      </ion-button>
+
+    </ion-card-content>
+
+  </ion-card>
+
+</ion-content>

@@ -1,0 +1,26 @@
+.vaccine-card {
+  margin-bottom: 12px;
+  border-radius: 12px;
+}
+
+.status {
+  font-weight: bold;
+  margin-top: 8px;
+}
+
+.ok {
+  color: #ABC270; // verde Ionic
+}
+
+.warning {
+  color: #FEC868; // amarelo Ionic
+}
+
+.danger {
+  color: #FDA769; // vermelho Ionic
+}
+
+.date {
+  opacity: 0.7;
+  font-size: 14px;
+}

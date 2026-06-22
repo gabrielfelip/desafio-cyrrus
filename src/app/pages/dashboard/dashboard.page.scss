@@ -1,0 +1,35 @@
+.center-content {
+  text-align: center;
+}
+
+.center-content h1 {
+  font-size: 48px;
+  margin: 0;
+}
+
+.status-box {
+  text-align: center;
+  padding: 12px;
+  margin-top: 10px;
+  border-radius: 8px;
+  color: #473C33;
+  font-weight: bold;
+}
+
+.status-box h2 {
+  font-size: 32px;
+  margin: 0;
+}
+
+.warning {
+  background: #FEC868;
+}
+
+.danger {
+  background: #FDA769;
+}
+
+.ok {
+  background: #ABC270; /* sucesso */
+  color: #473C33;
+}

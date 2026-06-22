@@ -1,0 +1,42 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Dashboard</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+
+  <!-- CARD PRINCIPAL -->
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>👶 Crianças cadastradas</ion-card-title>
+    </ion-card-header>
+
+    <ion-card-content class="center-content">
+      <h1>{{ summary.totalChildren }}</h1>
+      <p>Total de crianças no sistema</p>
+    </ion-card-content>
+  </ion-card>
+
+  <!-- STATUS GRID -->
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>💉 Status das Vacinas</ion-card-title>
+    </ion-card-header>
+
+    <ion-card-content>
+
+      <div class="status-box warning">
+        <h2>{{ summary.pendingVaccines }}</h2>
+        <p>Pendentes</p>
+      </div>
+
+      <div class="status-box danger">
+        <h2>{{ summary.lateVaccines }}</h2>
+        <p>Atrasadas</p>
+      </div>
+
+    </ion-card-content>
+  </ion-card>
+
+</ion-content>

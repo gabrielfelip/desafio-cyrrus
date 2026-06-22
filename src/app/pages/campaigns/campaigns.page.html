@@ -1,0 +1,49 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Campanhas</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+
+  <!-- RESUMO -->
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>📊 Painel de Risco Infantil</ion-card-title>
+    </ion-card-header>
+
+    <ion-card-content>
+      <p>👶 Crianças em risco: {{ summary.atRiskChildren }}</p>
+      <p>🔴 Vacinas atrasadas: {{ summary.lateVaccines }}</p>
+      <p>🟡 Vacinas pendentes: {{ summary.pendingVaccines }}</p>
+    </ion-card-content>
+  </ion-card>
+
+  <!-- LISTA DE PRIORIDADE -->
+  <ion-card *ngFor="let item of riskList" (click)="openChild(item.child.id)">
+
+    <ion-card-header>
+      <ion-card-title>
+        {{ item.child.name }}
+      </ion-card-title>
+    </ion-card-header>
+
+    <ion-card-content>
+
+      <p>
+        ⚠ Criança em risco
+      </p>
+
+      <p>
+        🔥 Total de alertas: {{ item.riskCount }}
+      </p>
+
+      <ion-button size="small" fill="outline">
+        Ver detalhes
+      </ion-button>
+
+    </ion-card-content>
+
+  </ion-card>
+
+</ion-content>

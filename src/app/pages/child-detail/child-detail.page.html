@@ -1,0 +1,87 @@
+<ion-header>
+  <ion-toolbar>
+
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/children"></ion-back-button>
+    </ion-buttons>
+
+    <ion-title>{{ child?.name }}</ion-title>
+
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+
+  <!-- ➕ ADICIONAR VACINA -->
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>➕ Adicionar vacina</ion-card-title>
+    </ion-card-header>
+
+    <ion-card-content>
+
+      <ion-item>
+        <ion-select [(ngModel)]="newVaccine.vaccineId" placeholder="Vacina">
+          <ion-select-option *ngFor="let v of vaccines" [value]="v.id">
+            {{ v.name }}
+          </ion-select-option>
+        </ion-select>
+      </ion-item>
+
+      <ion-item>
+        <ion-input type="date" [(ngModel)]="newVaccine.scheduledDate"></ion-input>
+      </ion-item>
+
+      <ion-button expand="block" (click)="addVaccine()">
+        Adicionar
+      </ion-button>
+
+    </ion-card-content>
+  </ion-card>
+
+  <!-- 🔴 ATRASADAS -->
+  <ion-card *ngIf="lateVaccines.length > 0">
+    <ion-card-header>
+      <ion-card-title>
+        <span class="status-badge danger">Vacinas atrasadas</span>
+      </ion-card-title>
+    </ion-card-header>
+
+    <ion-card-content>
+      <div *ngFor="let v of lateVaccines">
+        <p><b>{{ v.name }}</b> — {{ v.date }}</p>
+      </div>
+    </ion-card-content>
+  </ion-card>
+
+  <!-- 🟡 PENDENTES -->
+  <ion-card *ngIf="pendingVaccines.length > 0">
+    <ion-card-header>
+      <ion-card-title>
+        <span class="status-badge warning">Vacinas pendentes</span>
+      </ion-card-title>
+    </ion-card-header>
+
+    <ion-card-content>
+      <div *ngFor="let v of pendingVaccines">
+        <p><b>{{ v.name }}</b> — {{ v.date }}</p>
+      </div>
+    </ion-card-content>
+  </ion-card>
+
+  <!-- 🟢 APLICADAS -->
+  <ion-card *ngIf="appliedVaccines.length > 0">
+    <ion-card-header>
+      <ion-card-title>
+        <span class="status-badge ok">Vacinas aplicadas</span>
+      </ion-card-title>
+    </ion-card-header>
+
+    <ion-card-content>
+      <div *ngFor="let v of appliedVaccines">
+        <p><b>{{ v.name }}</b> — aplicado em {{ v.appliedDate }}</p>
+      </div>
+    </ion-card-content>
+  </ion-card>
+
+</ion-content>

@@ -1,0 +1,42 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Vacinas</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+
+  <ion-card *ngFor="let v of vaccines">
+
+    <ion-card-header>
+      <ion-card-title>
+        {{ v.name }}
+      </ion-card-title>
+
+      <ion-card-subtitle>
+        Idade recomendada: {{ v.recommendedAgeMonths }} meses
+      </ion-card-subtitle>
+    </ion-card-header>
+
+    <ion-card-content>
+
+      <p>📌 ID: {{ v.id }}</p>
+
+      <!-- STATUS PADRONIZADO -->
+      <div class="status-box warning">
+        Pendentes: {{ getStatusLabel(v.id).pending }}
+      </div>
+
+      <div class="status-box danger">
+        Atrasadas: {{ getStatusLabel(v.id).late }}
+      </div>
+
+      <div class="status-box ok">
+        Aplicadas: {{ getStatusLabel(v.id).applied }}
+      </div>
+
+    </ion-card-content>
+
+  </ion-card>
+
+</ion-content>
