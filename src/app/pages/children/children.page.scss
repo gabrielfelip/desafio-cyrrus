@@ -3,17 +3,29 @@ ion-card {
   transition: transform 0.2s ease;
   border-radius: 16px;
   margin-bottom: 16px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  background: #ced1c7;
 }
 
 ion-card:hover {
   transform: scale(1.02);
 }
 
+/* 🧾 STATUS SIMPLES (linha de texto) */
 .status {
   padding: 6px 10px;
   border-radius: 8px;
   margin: 4px 0;
   font-weight: bold;
+  color: #473C33;
+}
+
+/* 🟡 STATUS BOX PADRÃO */
+.status-box {
+  text-align: center;
+  padding: 12px;
+  border-radius: 12px;
+  font-weight: 600;
   color: #473C33;
 }
 
@@ -29,17 +41,26 @@ ion-card:hover {
   background: #FDA769;
 }
 
+/* 🗑 BOTÃO REMOVER (melhor contraste) */
 .btn-remove {
-  --background: #FDA769; 
-  --color: #000;
+  --background: #FDA769;
+  --color: #473C33; /* melhor leitura que preto puro */
+  --border-radius: 10px;
 }
 
+/* 🏷 TITULOS */
 ion-card-title {
   color: #473C33;
   font-weight: 700;
 }
 
+/* 🔝 TOOLBAR */
 ion-toolbar {
   --background: #ABC270;
   --color: #473C33;
+}
+
+/* ✨ MELHORIA GLOBAL DE TEXTO */
+p, span {
+  color: #473C33;
 }

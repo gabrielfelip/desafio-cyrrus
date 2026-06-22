@@ -34,50 +34,41 @@ import {
 })
 export class VaccinesPage {
 
-  vaccines: any[] = [];
-  vaccinations: any[] = [];
+  vaccinesWithStats: any[] = [];
 
   constructor(private vaccineService: VaccineService) {
-    this.vaccines = this.vaccineService.getVaccines();
+    this.load();
   }
 
-  getRecommendedAge(vaccine: any) {
-    return vaccine.recommendedAgeMonths ?? 'N/A';
-  }
+  load() {
+    const vaccines = this.vaccineService.getVaccines();
+    const children = this.vaccineService.getChildren();
 
-  getTotalChildrenForVaccine(vaccineId: number) {
-    const all = this.vaccineService.getVaccinationsByChild;
+    this.vaccinesWithStats = vaccines.map(vaccine => {
 
-    return this.vaccineService
-      .getChildren()
-      .filter(child =>
-        this.vaccineService
+      let applied = 0;
+      let pending = 0;
+      let late = 0;
+
+      children.forEach(child => {
+
+        const records = this.vaccineService
           .getVaccinationsByChild(child.id)
-          .some(v => v.vaccineId === vaccineId)
-      ).length;
-  }
+          .filter(v => v.vaccineId === vaccine.id);
 
-  getStatusLabel(vaccineId: number) {
-    const all = this.vaccineService.getChildren();
+        records.forEach(r => {
+          const status = this.vaccineService.getStatus(r);
 
-    let applied = 0;
-    let pending = 0;
-    let late = 0;
-
-    all.forEach(child => {
-      const vax = this.vaccineService
-        .getVaccinationsByChild(child.id)
-        .filter(v => v.vaccineId === vaccineId);
-
-      vax.forEach(v => {
-        const status = this.vaccineService.getStatus(v);
-
-        if (status === 'OK') applied++;
-        if (status === 'PENDENTE') pending++;
-        if (status === 'ATRASADA') late++;
+          if (status === 'OK') applied++;
+          if (status === 'PENDENTE') pending++;
+          if (status === 'ATRASADA') late++;
+        });
       });
-    });
 
-    return { applied, pending, late };
+      return {
+        ...vaccine,
+        stats: { applied, pending, late }
+      };
+    });
   }
 }

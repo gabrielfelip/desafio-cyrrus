@@ -1,39 +1,37 @@
 .status-box {
   text-align: center;
-  padding: 10px;
-  margin-top: 8px;
-  border-radius: 8px;
-  font-weight: bold;
-  color: #050505;
+  padding: 12px;
+  border-radius: 12px;
+  font-weight: 600;
+  color: #473C33;
 }
 
-.status-box h2 {
-  font-size: 22px;
-  margin: 0;
-}
-
+/* 🎨 STATUS COLORS (PALETA OFICIAL) */
 .ok {
-  background: #ABC270; // verde padrão Ionic
+  background: #ABC270;
 }
 
 .warning {
-  background: #FEC868; // amarelo padrão Ionic
+  background: #FEC868;
 }
 
 .danger {
-  background: #FDA769; // vermelho padrão Ionic
+  background: #FDA769;
 }
 
+/* 🧱 CARD PADRÃO GLOBAL */
 ion-card {
   border-radius: 16px;
   margin-bottom: 16px;
 }
 
+/* 🏷 TÍTULO */
 ion-card-title {
   color: #473C33;
   font-weight: 700;
 }
 
+/* 🔝 TOOLBAR */
 ion-toolbar {
   --background: #ABC270;
   --color: #473C33;

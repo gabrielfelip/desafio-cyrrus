@@ -1,9 +1,8 @@
 .status-box {
-  padding: 10px;
-  margin-bottom: 8px;
-  border-radius: 8px;
   text-align: center;
-  font-weight: bold;
+  padding: 12px;
+  border-radius: 12px;
+  font-weight: 600;
   color: #473C33;
 }
 
@@ -19,17 +18,71 @@
   background: #FDA769;
 }
 
+/* 🧱 CARD PADRÃO DO SISTEMA */
 ion-card {
   border-radius: 16px;
   margin-bottom: 16px;
+  background: #d1c7c7;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
 }
 
+/* 🏷 TITULOS */
 ion-card-title {
   color: #473C33;
   font-weight: 700;
 }
 
+/* 🔝 TOOLBAR PADRÃO */
 ion-toolbar {
   --background: #ABC270;
   --color: #473C33;
+}
+
+/* ✨ MELHORIA DE LEITURA GERAL */
+p, span {
+  color: #473C33;
+}
+
+/* 📱 MELHOR FEEDBACK VISUAL */
+ion-button {
+  --border-radius: 10px;
+}
+
+.child-status-card {
+  padding: 12px;
+  border-radius: 12px;
+  background: #d1c7c7;
+  margin-bottom: 10px;
+  border: 1px solid rgba(0,0,0,0.06);
+}
+
+.child-name {
+  font-weight: 700;
+  font-size: 22px;
+  color: #473C33;
+  margin-bottom: 6px;
+}
+
+.child-status {
+  font-size: 17px;
+  font-weight: 600;
+  padding: 6px 10px;
+  border-radius: 8px;
+  display: inline-block;
+}
+
+/* STATUS COLORS */
+.child-status.VACINADO {
+  background: #ABC270;
+  color: #473C33;
+}
+
+.child-status.PENDENTE {
+  background: #FEC868;
+  color: #473C33;
+}
+
+.child-status.NAO_ELEGIVEL {
+  background: #e0e0e0;
+  color: #473C33;
 }

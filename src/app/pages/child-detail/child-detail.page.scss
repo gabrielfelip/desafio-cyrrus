@@ -8,34 +8,103 @@
   margin-top: 8px;
 }
 
+/* 🟡 STATUS BOX PADRONIZADO */
+.status-box {
+  text-align: center;
+  padding: 12px;
+  border-radius: 12px;
+  font-weight: 600;
+  color: #473C33;
+}
+
 .ok {
-  color: #ABC270; // verde Ionic
+  background: #ABC270;
 }
 
 .warning {
-  color: #FEC868; // amarelo Ionic
+  background: #FEC868;
 }
 
 .danger {
-  color: #FDA769; // vermelho Ionic
+  background: #FDA769;
 }
 
+/* 📅 DATA */
 .date {
   opacity: 0.7;
   font-size: 14px;
+  color: #473C33;
 }
 
+/* 🧱 CARD PADRÃO GLOBAL */
 ion-card {
   border-radius: 16px;
   margin-bottom: 16px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  background: #d1c7c7;
 }
 
+/* 🏷 TITULO */
 ion-card-title {
   color: #473C33;
   font-weight: 700;
 }
 
+/* 🔝 TOOLBAR */
 ion-toolbar {
   --background: #ABC270;
   --color: #473C33;
+}
+
+/* 📦 ITEM DE VACINA (AJUSTE IMPORTANTE DE UX) */
+.vaccine-item {
+  padding: 12px;
+  border-radius: 10px;
+  margin-bottom: 10px;
+  background: #d1c7c7; /* mais leve e moderno que #ecdcdc */
+  border: 1px solid rgba(71, 60, 51, 0.08);
+}
+
+/* ✨ MELHORIA DE LEITURA GLOBAL */
+p, span {
+  color: #473C33;
+}
+
+.vaccine-item {
+  padding: 12px;
+  border-radius: 12px;
+  margin-bottom: 10px;
+  background: #ffffff;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+}
+
+.vaccine-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 6px;
+}
+
+.status-badge {
+  padding: 4px 10px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+/* STATUS COLORS */
+.ok {
+  background: #ABC270;
+  color: #fff;
+}
+
+.warning {
+  background: #FEC868;
+  color: #473C33;
+}
+
+.danger {
+  background: #FDA769;
+  color: #fff;
 }

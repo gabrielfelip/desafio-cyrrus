@@ -36,25 +36,19 @@
 
       <hr>
 
-      <div *ngFor="let item of getCampaignData(c).list">
+      <div *ngFor="let item of getCampaignData(c).list" class="child-status-card">
 
-        <p>
-          <strong>{{ item.child.name }}</strong>
-        </p>
+  <div class="child-name">
+    {{ item.child.name }}
+  </div>
 
-        <p *ngIf="item.status === 'VACINADO'">
-           Já vacinado(a)
-        </p>
+  <div class="child-status" [ngClass]="item.status">
+    <span *ngIf="item.status === 'VACINADO'">🟢 Já vacinado</span>
+    <span *ngIf="item.status === 'PENDENTE'">🟡 Precisa comparecer</span>
+    <span *ngIf="item.status === 'NAO_ELEGIVEL'">⚪ Não elegível</span>
+  </div>
 
-        <p *ngIf="item.status === 'PENDENTE'">
-           Precisa comparecer
-        </p>
-
-        <p *ngIf="item.status === 'NAO_ELEGIVEL'">
-           Fora do público-alvo
-        </p>
-
-      </div>
+</div>
 
     </ion-card-content>
 

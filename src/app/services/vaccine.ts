@@ -29,7 +29,7 @@ export class VaccineService {
     return VACCINES;
   }
 
-  // 💉 VACCINATION CRUD (NOVO)
+  // 💉 VACCINATION CRUD
   getVaccinations() {
     return this.vaccinations;
   }
@@ -38,7 +38,12 @@ export class VaccineService {
     this.vaccinations.push(vaccination);
   }
 
-  updateVaccinationStatus(childId: number, vaccineId: number, applied: boolean, date?: string) {
+  updateVaccinationStatus(
+    childId: number,
+    vaccineId: number,
+    applied: boolean,
+    date?: string
+  ) {
     const v = this.vaccinations.find(
       x => x.childId === childId && x.vaccineId === vaccineId
     );
@@ -53,6 +58,35 @@ export class VaccineService {
     this.vaccinations = this.vaccinations.filter(
       v => !(v.childId === childId && v.vaccineId === vaccineId)
     );
+  }
+
+  // 🧠 UPDATE GENÉRICO (NOVO CRUD COMPLETO)
+  updateVaccination(
+    childId: number,
+    vaccineId: number,
+    data: {
+      scheduledDate?: string;
+      applied?: boolean;
+      applicationDate?: string;
+    }
+  ) {
+    const vaccination = this.vaccinations.find(
+      v => v.childId === childId && v.vaccineId === vaccineId
+    );
+
+    if (!vaccination) return;
+
+    if (data.scheduledDate !== undefined) {
+      vaccination.scheduledDate = data.scheduledDate;
+    }
+
+    if (data.applied !== undefined) {
+      vaccination.applied = data.applied;
+    }
+
+    if (data.applicationDate !== undefined) {
+      vaccination.applicationDate = data.applicationDate;
+    }
   }
 
   // helpers
@@ -73,43 +107,42 @@ export class VaccineService {
   }
 
   getDashboardSummary() {
+    let pending = 0;
+    let late = 0;
 
-  let pending = 0;
-  let late = 0;
+    this.vaccinations.forEach(v => {
+      const status = this.getStatus(v);
 
-  this.vaccinations.forEach(v => {
+      if (status === 'PENDENTE') pending++;
+      if (status === 'ATRASADA') late++;
+    });
 
-    const status = this.getStatus(v);
+    return {
+      totalChildren: this.children.length,
+      pendingVaccines: pending,
+      lateVaccines: late
+    };
+  }
 
-    if (status === 'PENDENTE') pending++;
-    if (status === 'ATRASADA') late++;
-  });
+  getCampaigns() {
+    return [
+      {
+        id: 1,
+        name: 'Campanha Influenza 2026',
+        vaccineId: 4,
+        targetAgeMonths: 6
+      }
+    ];
+  }
 
-  return {
-    totalChildren: this.children.length,
-    pendingVaccines: pending,
-    lateVaccines: late
-  };
-}
-getCampaigns() {
-  return [
-    {
-      id: 1,
-      name: 'Campanha Influenza 2026',
-      vaccineId: 4,
-      targetAgeMonths: 6
-    }
-  ];
-}
+  isChildEligible(child: any, campaign: any) {
+    const birth = new Date(child.birthDate);
+    const now = new Date();
 
-isChildEligible(child: any, campaign: any) {
-  const birth = new Date(child.birthDate);
-  const now = new Date();
+    const ageMonths =
+      (now.getFullYear() - birth.getFullYear()) * 12 +
+      (now.getMonth() - birth.getMonth());
 
-  const ageMonths =
-    (now.getFullYear() - birth.getFullYear()) * 12 +
-    (now.getMonth() - birth.getMonth());
-
-  return ageMonths >= campaign.targetAgeMonths;
-}
+    return ageMonths >= campaign.targetAgeMonths;
+  }
 }

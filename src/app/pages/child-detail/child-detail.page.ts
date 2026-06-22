@@ -50,12 +50,7 @@ import {
 export class ChildDetailPage {
 
   child: any;
-
   vaccines: any[] = [];
-
-  lateVaccines: any[] = [];
-  pendingVaccines: any[] = [];
-  appliedVaccines: any[] = [];
 
   newVaccine = {
     vaccineId: null,
@@ -66,49 +61,22 @@ export class ChildDetailPage {
     private route: ActivatedRoute,
     private vaccineService: VaccineService
   ) {
-
     this.load();
   }
 
   load() {
     const id = Number(this.route.snapshot.paramMap.get('id'));
 
-    this.child = this.vaccineService
-      .getChildren()
+    this.child = this.vaccineService.getChildren()
       .find(c => c.id === id);
 
     this.vaccines = this.vaccineService.getVaccines();
-
-    this.buildVaccines(id);
-  }
-
-  buildVaccines(id: number) {
-
-    this.lateVaccines = [];
-    this.pendingVaccines = [];
-    this.appliedVaccines = [];
-
-    const vaccines = this.vaccineService.getVaccinationsByChild(id);
-
-    vaccines.forEach(v => {
-
-      const status = this.vaccineService.getStatus(v);
-
-      const formatted = {
-        name: this.vaccineService.getVaccineName(v.vaccineId),
-        date: v.scheduledDate,
-        appliedDate: v.applicationDate
-      };
-
-      if (status === 'ATRASADA') this.lateVaccines.push(formatted);
-      if (status === 'PENDENTE') this.pendingVaccines.push(formatted);
-      if (status === 'OK') this.appliedVaccines.push(formatted);
-    });
   }
 
   addVaccine() {
-
     const id = Number(this.route.snapshot.paramMap.get('id'));
+
+    if (!this.newVaccine.vaccineId || !this.newVaccine.scheduledDate) return;
 
     this.vaccineService.addVaccination({
       childId: id,
@@ -117,11 +85,56 @@ export class ChildDetailPage {
       applied: false
     });
 
+    this.reset();
+  }
+
+  markAsApplied(v: any) {
+    const id = Number(this.route.snapshot.paramMap.get('id'));
+
+    this.vaccineService.updateVaccination(id, v.vaccineId, {
+      applied: true,
+      applicationDate: new Date().toISOString().split('T')[0]
+    });
+  }
+
+  editDate(v: any) {
+    const newDate = prompt('Nova data (YYYY-MM-DD):', v.scheduledDate);
+    if (!newDate) return;
+
+    const id = Number(this.route.snapshot.paramMap.get('id'));
+
+    this.vaccineService.updateVaccination(id, v.vaccineId, {
+      scheduledDate: newDate
+    });
+  }
+
+  deleteVaccination(v: any) {
+    const id = Number(this.route.snapshot.paramMap.get('id'));
+
+    this.vaccineService.deleteVaccination(id, v.vaccineId);
+  }
+
+  getHistory() {
+    const id = Number(this.route.snapshot.paramMap.get('id'));
+
+    return this.vaccineService.getVaccinationsByChild(id)
+      .map(v => ({
+        name: this.vaccineService.getVaccineName(v.vaccineId),
+        scheduledDate: v.scheduledDate,
+        appliedDate: v.applicationDate,
+        status: this.vaccineService.getStatus(v),
+        vaccineId: v.vaccineId
+      }))
+      .sort((a, b) =>
+        new Date(a.scheduledDate).getTime() -
+        new Date(b.scheduledDate).getTime()
+      );
+  }
+
+  reset() {
     this.newVaccine = {
       vaccineId: null,
       scheduledDate: ''
     };
-
-    this.load();
   }
 }

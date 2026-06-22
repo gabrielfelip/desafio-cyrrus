@@ -6,7 +6,7 @@
 
 <ion-content class="ion-padding">
 
-  <ion-card *ngFor="let v of vaccines">
+  <ion-card *ngFor="let v of vaccinesWithStats">
 
     <ion-card-header>
       <ion-card-title>
@@ -20,19 +20,16 @@
 
     <ion-card-content>
 
-      <p> ID: {{ v.id }}</p>
-
-      <!-- STATUS PADRONIZADO -->
       <div class="status-box warning">
-        Pendentes: {{ getStatusLabel(v.id).pending }}
+        Pendentes: {{ v.stats.pending }}
       </div>
 
       <div class="status-box danger">
-        Atrasadas: {{ getStatusLabel(v.id).late }}
+        Atrasadas: {{ v.stats.late }}
       </div>
 
       <div class="status-box ok">
-        Aplicadas: {{ getStatusLabel(v.id).applied }}
+        Aplicadas: {{ v.stats.applied }}
       </div>
 
     </ion-card-content>
